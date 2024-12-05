@@ -1,0 +1,92 @@
+.characterDetailWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Sayfa yüksekliği kadar yer kaplar */
+  background-color: #f7f7f7;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.character-card {
+  display: flex;
+  flex-direction: row; /* Yatay düzen */
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+  width: 80%; /* Kartın genişliği %80 */
+  max-width: 1200px; /* Maksimum genişlik */
+  height: 400px; /* Sabit yükseklik */
+  justify-content: flex-start;
+  padding: 20px;
+  box-sizing: border-box;
+  margin: 0 auto;
+}
+
+.character-card img {
+  width: 40%; /* Resim genişliği */
+  height: 100%; /* Resmin yüksekliği kartın yüksekliği ile uyumlu */
+  object-fit: cover;
+  border-radius: 8px;
+  margin-right: 20px;
+}
+
+.character-card-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1; /* İçeriği esnetmek için */
+  height: 100%; /* İçeriğin yüksekliği kartla uyumlu */
+}
+
+.character-card-content h2 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.character-card-content p {
+  font-size: 1.1rem;
+  margin: 5px 0;
+}
+
+.status {
+  font-weight: bold;
+}
+
+.status.alive {
+  color: #28a745; /* Yeşil */
+}
+
+.status.dead {
+  color: #dc3545; /* Kırmızı */
+}
+
+.status.unknown {
+  color: #212529; /* Siyah */
+}
+
+.species {
+  color: #007bff;
+}
+
+.location,
+.origin {
+  color: #6c757d;
+}
+
+.button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  margin-top: 20px;
+  text-align: center;
+}
+
+.button:hover {
+  background-color: #0056b3;
+}

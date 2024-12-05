@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { fetchAllCharacters } from '../services/api';
+import { Link } from 'react-router-dom';
+import './CharacterList.css';
 
 const CharacterList = () => {
   const [allCharacters, setAllCharacters] = useState([]); // Tüm karakterler
@@ -12,39 +14,36 @@ const CharacterList = () => {
   const [speciesFilter, setSpeciesFilter] = useState(''); // Species filtresi
   const [currentPage, setCurrentPage] = useState(1); // Mevcut sayfa
   const [sortOrder, setSortOrder] = useState({}); // Sütun bazlı sıralama
-  const itemsPerPage = 20; // Sayfa başına gösterilecek karakter sayısı
+  const [itemsPerPage, setItemsPerPage] = useState(20); // Sayfa boyutunu kontrol eden state
 
   useEffect(() => {
     const loadAllCharacters = async () => {
       try {
         setLoading(true);
-        const data = await fetchAllCharacters(); // Tüm karakterleri yükle
-        if (Array.isArray(data)) {  // Eğer veri dizisi şeklinde geldiyse
-          setAllCharacters(data);
-          setFilteredCharacters(data); // Başlangıçta tüm karakterler gösterilir
-        } else {
-          throw new Error('Veri formatı hatalı');
-        }
+        const data = await fetchAllCharacters(); 
+        setAllCharacters(data);
+        setFilteredCharacters(data);
       } catch (err) {
-        setError(err.message);
+        setError('Veriler alınırken bir hata oluştu: ' + err.message); // Hata mesajı
       } finally {
         setLoading(false);
       }
     };
-  
+
     loadAllCharacters();
   }, []);
 
   // Mevcut sayfadaki karakterleri ayarla
   useEffect(() => {
-    if (filteredCharacters && filteredCharacters.length > 0) {
-      const startIndex = (currentPage - 1) * itemsPerPage;
-      const endIndex = startIndex + itemsPerPage;
-      setCurrentPageCharacters(filteredCharacters.slice(startIndex, endIndex));
-    } else {
-      setCurrentPageCharacters([]); // Eğer filtrelenmiş karakter yoksa, boş sayfa göster
-    }
-  }, [currentPage, filteredCharacters]);
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    setCurrentPageCharacters(filteredCharacters.slice(startIndex, endIndex));
+  }, [currentPage, filteredCharacters, itemsPerPage]); // itemsPerPage'e bağlı olarak güncellenir
+
+  const handleItemsPerPageChange = (e) => {
+    setItemsPerPage(Number(e.target.value)); // Seçilen sayfa boyutunu güncelle
+    setCurrentPage(1); // Sayfa boyutu değiştiğinde, sayfa 1'e sıfırlanır
+  };
 
   // Filtreleme işlemi
   const handleSearch = () => {
@@ -83,7 +82,7 @@ const CharacterList = () => {
     let sorted;
 
     if (key === 'name') {
-      // Alphabetical sort
+      // Alfabetik Sıralama
       newOrder = sortOrder[key] === 'asc' ? 'desc' : 'asc';
       sorted = [...filteredCharacters].sort((a, b) =>
         newOrder === 'asc'
@@ -91,7 +90,7 @@ const CharacterList = () => {
           : b[key].localeCompare(a[key])
       );
     } else if (key === 'status') {
-      // Status sort (Alive -> Dead -> Unknown)
+      // Status Sıralama (Alive -> Dead -> Unknown)
       const statusOrder = ['Alive', 'Dead', 'Unknown'];
       newOrder = sortOrder[key] === 'asc' ? 'desc' : 'asc';
 
@@ -112,18 +111,24 @@ const CharacterList = () => {
   useEffect(() => {
     const debounceTimeout = setTimeout(() => {
       handleSearch(); // Arama işlemi geciktirilmiş şekilde yapılır
-    }, 1); // 1 ms gecikmeli
+    }, 300); // 300 ms gecikmeli
   
     return () => clearTimeout(debounceTimeout); // Temizleme işlemi
   }, [searchTerm, statusFilter, speciesFilter]);
-  
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error}</p>;
+  if (loading) return <p>Yükleniyor...</p>;
+  if (error) return <p style={{ color: 'red' }}>{error}</p>;
 
   return (
     <div>
       <h2>Rick and Morty Characters</h2>
+
+      {/* Sayfa boyutunu seçmek için bir dropdown */}
+      <select value={itemsPerPage} onChange={handleItemsPerPageChange} style={{ marginBottom: '20px', padding: '5px' }}>
+        <option value={10}>10 items per page</option>
+        <option value={20}>20 items per page</option>
+        <option value={50}>50 items per page</option>
+      </select>
 
       {/* Arama Çubuğu */}
       <input
@@ -156,11 +161,11 @@ const CharacterList = () => {
         <thead>
           <tr>
             <th>Image</th>
-            <th onClick={() => handleSort('name')} style={{ cursor: 'pointer' }}>
-              Name {sortOrder.name === 'asc' ? '(A-Z)' : sortOrder.name === 'desc' ? '(Z-A)' : ''}
+            <th style={{ cursor: 'pointer' }} onClick={() => handleSort('name')}>
+              Name {sortOrder.name === 'asc' ? '↑' : sortOrder.name === 'desc' ? '↓' : ''}
             </th>
-            <th onClick={() => handleSort('status')} style={{ cursor: 'pointer' }}>
-              Status {sortOrder.status === 'asc' ? '(Ascending)' : sortOrder.status === 'desc' ? '(Descending)' : ''}
+            <th style={{ cursor: 'pointer' }} onClick={() => handleSort('status')}>
+              Status {sortOrder.status === 'asc' ? '↑' : sortOrder.status === 'desc' ? '↓' : ''}
             </th>
             <th>Species</th>
           </tr>
@@ -171,7 +176,9 @@ const CharacterList = () => {
               <td>
                 <img src={character.image} alt={character.name} style={{ width: '50px', height: '50px' }} />
               </td>
-              <td>{character.name}</td>
+              <td>
+                <Link to={`/character/${character.id}`}>{character.name}</Link>
+              </td>
               <td>{character.status}</td>
               <td>{character.species}</td>
             </tr>
