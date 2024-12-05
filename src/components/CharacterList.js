@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { fetchAllCharacters } from '../services/api';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './CharacterList.css';
 
 const CharacterList = () => {
@@ -12,9 +12,11 @@ const CharacterList = () => {
   const [searchTerm, setSearchTerm] = useState(''); // Arama terimi
   const [statusFilter, setStatusFilter] = useState(''); // Status filtresi
   const [speciesFilter, setSpeciesFilter] = useState(''); // Species filtresi
-  const [currentPage, setCurrentPage] = useState(1); // Mevcut sayfa
+  const [currentPage, setCurrentPage] = useState(localStorage.getItem('currentPage') || 1);  // Sayfa numarasını localStorage'dan alıyoruz
   const [sortOrder, setSortOrder] = useState({}); // Sütun bazlı sıralama
   const [itemsPerPage, setItemsPerPage] = useState(20); // Sayfa boyutunu kontrol eden state
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const loadAllCharacters = async () => {
@@ -38,6 +40,7 @@ const CharacterList = () => {
     const startIndex = (currentPage - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
     setCurrentPageCharacters(filteredCharacters.slice(startIndex, endIndex));
+    localStorage.setItem('currentPage', currentPage); // Sayfa numarasını localStorage'da sakla
   }, [currentPage, filteredCharacters, itemsPerPage]); // itemsPerPage'e bağlı olarak güncellenir
 
   const handleItemsPerPageChange = (e) => {
@@ -61,6 +64,11 @@ const CharacterList = () => {
   
     setFilteredCharacters(filtered);
     setCurrentPage(1); // Sayfayı sıfırla
+  };
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+    navigate('/');  // Sayfa değiştiğinde, URL'yi de güncelle
   };
   
 
@@ -187,21 +195,9 @@ const CharacterList = () => {
       </table>
 
       {/* Sayfalama */}
-      <div style={{ marginTop: '20px', textAlign: 'center' }}>
-        <button
-          onClick={() => setCurrentPage(1)}
-          disabled={currentPage === 1}
-          style={{ marginRight: '10px' }}
-        >
-          First
-        </button>
-        <button
-          onClick={() => setCurrentPage((prevPage) => Math.max(prevPage - 1, 1))}
-          disabled={currentPage === 1}
-          style={{ marginRight: '10px' }}
-        >
-          Previous
-        </button>
+      <div className="pagination" style={{ marginTop: '20px', textAlign: 'center' }}>
+      <button onClick={() => handlePageChange(1)} disabled={currentPage === 1}>First</button>
+      <button onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}>Previous</button>
 
         {/* Sayfa numaralarını göster */}
         {Array.from({ length: Math.ceil(filteredCharacters.length / itemsPerPage) }, (_, index) => (
@@ -217,26 +213,8 @@ const CharacterList = () => {
           </button>
         ))}
 
-        <button
-          onClick={() =>
-            setCurrentPage((prevPage) =>
-              Math.min(prevPage + 1, Math.ceil(filteredCharacters.length / itemsPerPage))
-            )
-          }
-          disabled={currentPage === Math.ceil(filteredCharacters.length / itemsPerPage)}
-          style={{ marginLeft: '10px' }}
-        >
-          Next
-        </button>
-        <button
-          onClick={() =>
-            setCurrentPage(Math.ceil(filteredCharacters.length / itemsPerPage))
-          }
-          disabled={currentPage === Math.ceil(filteredCharacters.length / itemsPerPage)}
-          style={{ marginLeft: '10px' }}
-        >
-          Last
-        </button>
+        <button onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === Math.ceil(filteredCharacters.length / itemsPerPage)}>Next</button>
+        <button onClick={() => handlePageChange(Math.ceil(filteredCharacters.length / itemsPerPage))} disabled={currentPage === Math.ceil(filteredCharacters.length / itemsPerPage)}>Last</button>
       </div>
     </div>
   );

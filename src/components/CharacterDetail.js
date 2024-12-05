@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { fetchCharacterDetails } from '../services/api'; // API'den karakter detayını alacak fonksiyon
 import styles from './CharacterDetail.module.css';
 
@@ -8,6 +8,7 @@ const CharacterDetail = () => {
   const [character, setCharacter] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const loadCharacter = async () => {
@@ -42,7 +43,7 @@ const CharacterDetail = () => {
               <p className={styles.species}>Species: {character.species}</p>
               <p className={styles.location}>Last Known Location: {character.location.name}</p>
               <p className={styles.origin}>Origin: {character.origin.name}</p>
-              <Link to="/" className={styles.button}>Back to Character List</Link>
+              <button onClick={() => navigate(-1)} className={styles.button}>Back to Character List</button>
             </div>
           </>
         )}
