@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/FrontEndAssesment-MassiveBioinformatics/static/css/main.92e29891.css",
-    "main.js": "/FrontEndAssesment-MassiveBioinformatics/static/js/main.e0fae8b1.js",
+    "main.js": "/FrontEndAssesment-MassiveBioinformatics/static/js/main.b2b58591.js",
     "static/js/453.fb210a57.chunk.js": "/FrontEndAssesment-MassiveBioinformatics/static/js/453.fb210a57.chunk.js",
     "index.html": "/FrontEndAssesment-MassiveBioinformatics/index.html",
     "main.92e29891.css.map": "/FrontEndAssesment-MassiveBioinformatics/static/css/main.92e29891.css.map",
-    "main.e0fae8b1.js.map": "/FrontEndAssesment-MassiveBioinformatics/static/js/main.e0fae8b1.js.map",
+    "main.b2b58591.js.map": "/FrontEndAssesment-MassiveBioinformatics/static/js/main.b2b58591.js.map",
     "453.fb210a57.chunk.js.map": "/FrontEndAssesment-MassiveBioinformatics/static/js/453.fb210a57.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.92e29891.css",
-    "static/js/main.e0fae8b1.js"
+    "static/js/main.b2b58591.js"
   ]
 }
