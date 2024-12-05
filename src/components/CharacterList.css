@@ -1,181 +1,146 @@
-/* Genel stil */
+/* Genel Stil */
 body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f4f4f9;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-  /* Ana konteyner */
-  div {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  /* Başlık */
-  h2 {
-    text-align: center;
-    color: #333;
-    margin-bottom: 20px;
-  }
-  
-  /* Sayfa boyutunu seçen dropdown */
-  select {
-    margin: 10px 0;
-    padding: 8px;
-    font-size: 14px;
-    border-radius: 4px;
-    border: 1px solid #ddd;
-  }
-  
-  /* Arama çubuğu */
-  input[type="text"] {
-    padding: 8px;
-    font-size: 14px;
-    margin: 10px 0;
-    width: 100%;
-    max-width: 300px;
-    border-radius: 4px;
-    border: 1px solid #ddd;
-    margin-bottom: 20px;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  
-  /* Filtrelenecek alanlar */
-  select, input[type="text"] {
-    width: auto;
-    display: inline-block;
-    margin-right: 10px;
-  }
-  
-  /* Tablo düzeni */
-  table {
-    width: 100%;
-    margin-top: 20px;
-    border-collapse: collapse;
-    text-align: left;
-  }
-  
-  th, td {
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
-  }
-  
-  th {
-    background-color: #f4f4f4;
-    color: #333;
-    cursor: pointer;
-    position: relative;
-  }
-  
-  th:hover {
-    background-color: #e9e9e9;
-  }
-  
-  td img {
-    border-radius: 50%;
-  }
-  
-  /* Sayfalama */
-  button {
-    padding: 8px 16px;
-    margin: 5px;
-    font-size: 14px;
-    border: none;
-    border-radius: 4px;
-    background-color: #5c6bc0;
-    color: white;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  button:hover {
-    background-color: #3f4f97;
-  }
-  
-  button:disabled {
-    background-color: #ddd;
-    cursor: not-allowed;
-  }
-  
-  button:focus {
-    outline: none;
-  }
-  
-  /* Sayfa numarası butonları */
-  button.active-page {
-    background-color: #3f4f97;
-    font-weight: bold;
-  }
-  
-  /* Sayfalama kutusundaki butonların hizalanması */
-  div[style*="margin-top: 20px; text-align: center;"] {
-    display: flex;
-    justify-content: center;
+  font-family: 'Arial', sans-serif;
+  background-color: #f5f7fa; /* Soluk gri arka plan */
+  color: #333; /* Koyu gri yazılar */
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Ana Konteyner */
+div {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff; /* Beyaz arka plan */
+  border-radius: 10px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+/* Başlık */
+h2 {
+  text-align: center;
+  color: #4e73df; /* Koyu mavi başlık */
+  margin-bottom: 20px;
+}
+
+/* Arama Kutuları için Genel Stil */
+.search-container {
+  display: flex;
+  justify-content: space-between; /* Arama kutularını yatayda eşit şekilde dağıt */
+  margin-bottom: 20px;
+}
+
+.search-container input,
+.search-container select {
+  padding: 8px;
+  font-size: 14px;
+  margin: 5px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  background-color: #f1f3f5; /* Soluk gri arka plan */
+  width: 48%; /* Her bir kutu için genişlik ayarı */
+}
+
+/* Tablo Düzeni */
+table {
+  width: 100%;
+  margin-top: 20px;
+  border-collapse: collapse;
+  text-align: left;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+th, td {
+  padding: 10px;
+  border-bottom: 1px solid #e2e3e5;
+}
+
+th {
+  background-color: #4e73df; /* Koyu mavi başlık arka planı */
+  color: white;
+  cursor: pointer;
+  position: relative;
+  font-weight: bold;
+}
+
+th:hover {
+  background-color: #2e59d9; /* Başlık hover efekti */
+}
+
+/* Karakter Resmi */
+td img {
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  margin: 0 auto;
+  display: block; /* Görsellerin düzgün yerleşmesi için */
+}
+
+/* Sayfalama */
+button {
+  padding: 8px 16px;
+  margin: 5px;
+  font-size: 14px;
+  border: none;
+  border-radius: 4px;
+  background-color: #4e73df; /* Koyu mavi buton */
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #2e59d9; /* Buton hover efekti */
+}
+
+button:disabled {
+  background-color: #ddd;
+  cursor: not-allowed;
+}
+
+button:focus {
+  outline: none;
+}
+
+/* Sayfa Numara Butonları */
+button.active-page {
+  background-color: #2e59d9;
+  font-weight: bold;
+}
+
+/* Sayfalama Butonlarının Hizalanması */
+div[style*="margin-top: 20px; text-align: center;"] {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+div[style*="margin-top: 20px; text-align: center;"] button {
+  margin: 5px;
+}
+
+/* Responsive Tasarım */
+@media (max-width: 768px) {
+  .search-container {
+    flex-direction: column;
     align-items: center;
-    flex-wrap: wrap;
   }
-  
-  div[style*="margin-top: 20px; text-align: center;"] button {
-    margin: 5px;
+
+  .search-container input,
+  .search-container select {
+    width: 100%;
+    margin: 10px 0;
   }
-  
-  /* Hover işaretçileri */
-  th::after {
-    content: " ⬇";
+
+  table, button {
     font-size: 12px;
-    position: absolute;
-    right: 10px;
-    top: 10px;
-    opacity: 0;
-    transition: opacity 0.3s ease;
   }
-  
-  th:hover::after {
-    opacity: 1;
+
+  div {
+    padding: 10px;
   }
-  
-  /* Sayfa numarası butonlarının görünümü */
-  button {
-    padding: 8px 16px;
-    margin: 5px;
-    font-size: 14px;
-    border: none;
-    border-radius: 4px;
-    background-color: #5c6bc0;
-    color: white;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  button:hover {
-    background-color: #3f4f97;
-  }
-  
-  button:disabled {
-    background-color: #ddd;
-    cursor: not-allowed;
-  }
-  
-  /* Responsive Tasarım */
-  @media (max-width: 768px) {
-    input[type="text"] {
-      width: 100%;
-    }
-  
-    table, button {
-      font-size: 12px;
-    }
-  
-    div {
-      padding: 10px;
-    }
-  }
-  
+}

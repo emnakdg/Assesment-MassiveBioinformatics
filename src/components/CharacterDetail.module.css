@@ -1,9 +1,10 @@
+/* Genel Stil */
 .characterDetailWrapper {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh; /* Sayfa yüksekliği kadar yer kaplar */
-  background-color: #f7f7f7;
+  background-color: #f5f7fa; /* Soluk gri arka plan */
   padding: 20px;
   box-sizing: border-box;
 }
@@ -11,9 +12,9 @@
 .character-card {
   display: flex;
   flex-direction: row; /* Yatay düzen */
-  background-color: #fff;
+  background-color: #fff; /* Beyaz kart */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
+  border-radius: 10px;
   overflow: hidden;
   width: 80%; /* Kartın genişliği %80 */
   max-width: 1200px; /* Maksimum genişlik */
@@ -22,14 +23,20 @@
   padding: 20px;
   box-sizing: border-box;
   margin: 0 auto;
+  transition: transform 0.3s ease;
+}
+
+.character-card:hover {
+  transform: scale(1.05); /* Hover efekti */
 }
 
 .character-card img {
-  width: 40%; /* Resim genişliği */
+  width: 35%; /* Resim genişliği */
   height: 100%; /* Resmin yüksekliği kartın yüksekliği ile uyumlu */
   object-fit: cover;
   border-radius: 8px;
   margin-right: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Resme hafif gölge efekti */
 }
 
 .character-card-content {
@@ -44,11 +51,13 @@
   font-size: 2rem;
   margin-bottom: 10px;
   font-weight: bold;
+  color: #333;
 }
 
 .character-card-content p {
   font-size: 1.1rem;
   margin: 5px 0;
+  color: #555;
 }
 
 .status {
@@ -68,25 +77,62 @@
 }
 
 .species {
-  color: #007bff;
+  color: #0561c4; /* Mavi */
 }
 
 .location,
 .origin {
-  color: #6c757d;
+  color: #6c757d; /* Gri */
 }
 
 .button {
   display: inline-block;
   padding: 10px 20px;
-  background-color: #007bff;
+  background-color: #4e73df; /* Koyu mavi buton */
   color: white;
   text-decoration: none;
   border-radius: 5px;
   margin-top: 20px;
   text-align: center;
+  transition: background-color 0.3s ease;
 }
 
 .button:hover {
-  background-color: #0056b3;
+  background-color: #2e59d9; /* Hover efekti */
+}
+
+.button:focus {
+  outline: none;
+}
+
+.button:active {
+  background-color: #004085;
+}
+
+@media (max-width: 768px) {
+  .character-card {
+    flex-direction: column;
+    height: auto;
+    padding: 15px;
+  }
+
+  .character-card img {
+    width: 100%;
+    height: auto;
+    margin-right: 0;
+    margin-bottom: 15px;
+  }
+
+  .character-card-content h2 {
+    font-size: 1.5rem;
+  }
+
+  .character-card-content p {
+    font-size: 1rem;
+  }
+
+  .button {
+    width: 100%;
+    text-align: center;
+  }
 }
